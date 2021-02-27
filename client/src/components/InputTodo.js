@@ -7,7 +7,7 @@ export default function InputTodo() {
         e.preventDefault();
         try{
             const body = {description};
-            const response =await fetch("http://104.42.119.14/todos",{
+            const response =await fetch("http://104.42.119.14:5000/todos",{
                 method:"POST",
                 headers:{"Content-Type":"application/json"},
                 body:JSON.stringify(body)
