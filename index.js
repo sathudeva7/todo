@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const pool = require("./db");
+require('dotenv').config();
 const path = require('path');
 app.use(cors());
 app.use(express.json());
@@ -16,9 +17,9 @@ app.get('/', (req,res) => {
 
 app.post("/todos",async(req,res) => {
     try{
-        const {description} = req.body
-        const newTodo = await pool.query("INSERT INTO tobo (description) VALUES($1) RETURNING *",[description])
-        res.json(newTodo.rows[0])
+      const {description} = req.body
+      const newTodo = await pool.query("INSERT INTO tobo (description) VALUES($1) RETURNING *",[description])
+      res.json(newTodo.rows[0])
     }catch(err){
         console.error(err.message);
     }
@@ -67,6 +68,6 @@ app.delete("/todos/:id",async(req,res) => {
     }
 })
 
-app.listen(5000, () => {
+app.listen(process.env.PORT || 5000, () => {
     console.log("server started")
 })
